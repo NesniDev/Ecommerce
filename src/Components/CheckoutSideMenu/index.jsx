@@ -3,6 +3,7 @@ import './styles.css'
 import { useContext } from 'react'
 import { ShoppingCartContext } from '../../Context/ShoppingCartContext'
 import OrderCard from '../OrderCard'
+import { totalPrice } from '../../utils'
 
 const CheckoutSideMenu = () => {
   const context = useContext(ShoppingCartContext)
@@ -39,6 +40,24 @@ const CheckoutSideMenu = () => {
             />
           )
         })}
+      </div>
+      <div className="p-6">
+        <p className="text-lg font-bold flex justify-evenly items-center">
+          {totalPrice(context.cartProducts) === 0 ? (
+            <>
+              <span className="text-black font-light italic">
+                Add products to your cart
+              </span>
+            </>
+          ) : (
+            <>
+              <span className="text-black font-light">Total: </span>
+              <span className="text-black font-semibold">
+                $ {totalPrice(context.cartProducts)}
+              </span>
+            </>
+          )}
+        </p>
       </div>
     </aside>
   )
