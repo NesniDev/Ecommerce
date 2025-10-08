@@ -1,9 +1,10 @@
-import { XMarkIcon } from '@heroicons/react/16/solid'
-import './styles.css'
 import { useContext } from 'react'
+import { Link } from 'react-router-dom'
+import { XMarkIcon } from '@heroicons/react/16/solid'
 import { ShoppingCartContext } from '../../Context/ShoppingCartContext'
 import OrderCard from '../OrderCard'
 import { totalPrice } from '../../utils'
+import './styles.css'
 
 const CheckoutSideMenu = () => {
   const context = useContext(ShoppingCartContext)
@@ -12,6 +13,21 @@ const CheckoutSideMenu = () => {
   const handleDeleteProduct = (title) => {
     const filtered = context.cartProducts.filter((item) => item.title !== title)
     context.setCartProducts(filtered)
+  }
+
+  const handleCheckout = () => {
+    const orderToAdd = {
+      date: new Date(),
+      products: context.cartProducts,
+      totalProducts: context.cartProducts.length,
+      total: totalPrice(context.cartProducts)
+    }
+
+    context.setOrder([...context.order, orderToAdd])
+    console.log(context.order)
+    context.setCartProducts([])
+    context.closeCheckoutSideMenu()
+    context.closeProductDetail()
   }
   return (
     <aside
@@ -28,7 +44,7 @@ const CheckoutSideMenu = () => {
           <XMarkIcon className="h-6 w-6 text-black/50 hover:text-black cursor-pointer" />
         </div>
       </div>
-      <div className="overflow-y-scroll">
+      <div className="overflow-y-scroll flex-1">
         {context.cartProducts.map((item) => {
           return (
             <OrderCard
@@ -41,11 +57,11 @@ const CheckoutSideMenu = () => {
           )
         })}
       </div>
-      <div className="p-6">
-        <p className="text-lg font-bold flex justify-evenly items-center">
+      <div className="p-6 ">
+        <p className="text-lg font-bold flex justify-between items-center">
           {totalPrice(context.cartProducts) === 0 ? (
             <>
-              <span className="text-black font-light italic">
+              <span className="text-black font-light italic m-auto">
                 Add products to your cart
               </span>
             </>
@@ -58,6 +74,14 @@ const CheckoutSideMenu = () => {
             </>
           )}
         </p>
+        <Link to="/my-orders-last">
+          <button
+            className="bg-black hover:bg-black/70 text-white py-2 px-4 rounded-lg block m-auto mt-3 cursor-pointer "
+            onClick={() => handleCheckout()}
+          >
+            Checkout
+          </button>
+        </Link>
       </div>
     </aside>
   )

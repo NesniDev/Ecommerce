@@ -9,14 +9,17 @@ function Home() {
   useEffect(() => {
     fetch('https://api.escuelajs.co/api/v1/products')
       .then((res) => res.json())
-      .then((data) => setItems(data))
+      .then((data) => {
+        setItems(data)
+      })
+      .catch((error) => console.error('Error fetching products:', error))
   }, [])
   return (
     <Layout>
       <h1 className="text-3xl font-bold underline">Home</h1>
       <section className="mt-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {items.map((item) => {
-          return <Card key={item.title} {...item} />
+        {items?.map((item) => {
+          return <Card key={item.id} {...item} />
         })}
         <ProductDetail />
       </section>

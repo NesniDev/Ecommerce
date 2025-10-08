@@ -62,7 +62,7 @@ const Card = ({ title, category, price, images, description }) => {
     >
       <figure className="relative mb-4 w-full h-4/5">
         <span className="absolute bottom-0 ml-1 mb-1 px-3 left-0 text-white rounded-lg text-xs p-1 bg-white/60">
-          {category.name}
+          {category?.name}
         </span>
         <img
           src={images[0]}
