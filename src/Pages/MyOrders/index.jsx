@@ -1,5 +1,5 @@
 import Layout from '../../Components/Layout'
-import OrdersCards from '../../Components/OrdersCard'
+import OrdersCard from '../../Components/OrdersCard'
 import { useContext } from 'react'
 import { ShoppingCartContext } from '../../Context/ShoppingCartContext'
 import { Link } from 'react-router-dom'
@@ -10,12 +10,12 @@ function MyOrders() {
   return (
     <>
       <Layout>
-        My orders
+        <h1 className="text-2xl font-semibold">My orders</h1>
         {context.order.map((item, index) => {
           return (
             <Link key={index} to={`/my-orders/${index}`}>
-              <OrdersCards
-                totalPrice={item.totalPrice}
+              <OrdersCard
+                totalPrice={item.total}
                 totalProducts={item.totalProducts}
               />
             </Link>
