@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { ShoppingCartContext } from './ShoppingCartContext'
 
 export const ShoppingCartProvider = ({ children }) => {
@@ -18,6 +18,53 @@ export const ShoppingCartProvider = ({ children }) => {
   //shoping cart - orders
   const [order, setOrder] = useState([])
 
+  //get products
+  const [items, setItems] = useState([])
+  //get product by title
+  const [searchByTitle, setSearchByTitle] = useState(null)
+  const [filteredItems, setFilteredItems] = useState(null)
+
+  const [searchByCategory, setSearchByCategory] = useState(null)
+
+  useEffect(() => {
+    fetch('https://api.escuelajs.co/api/v1/products')
+      .then((res) => res.json())
+      .then((data) => {
+        setItems(data)
+      })
+      .catch((error) => console.error('Error fetching products:', error))
+  }, [])
+
+  useEffect(() => {
+    let filtered = items
+
+    if (searchByTitle && searchByCategory) {
+      filtered = filtered
+        ?.filter((item) =>
+          item.category.name
+            .toLowerCase()
+            .includes(searchByCategory.toLowerCase())
+        )
+        .filter((item) =>
+          item.title.toLowerCase().includes(searchByTitle.toLowerCase())
+        )
+    } else if (searchByTitle) {
+      filtered = filtered?.filter((item) =>
+        item.title.toLowerCase().includes(searchByTitle.toLowerCase())
+      )
+    } else if (searchByCategory) {
+      filtered = filtered?.filter((item) =>
+        item.category.name
+          .toLowerCase()
+          .includes(searchByCategory.toLowerCase())
+      )
+    }
+
+    setFilteredItems(filtered)
+  }, [items, searchByTitle, searchByCategory])
+
+  console.log(filteredItems)
+
   return (
     <ShoppingCartContext.Provider
       value={{
@@ -35,7 +82,15 @@ export const ShoppingCartProvider = ({ children }) => {
         closeCheckoutSideMenu,
         setIsCheckoutSideMenuOpen,
         order,
-        setOrder
+        setOrder,
+        items,
+        setItems,
+        searchByTitle,
+        setSearchByTitle,
+        filteredItems,
+        setFilteredItems,
+        searchByCategory,
+        setSearchByCategory
       }}
     >
       {children}
