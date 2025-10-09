@@ -28,6 +28,8 @@ const CheckoutSideMenu = () => {
     context.setCartProducts([])
     context.closeCheckoutSideMenu()
     context.closeProductDetail()
+    context.setSearchByTitle(null)
+    context.setSearchByCategory(null)
   }
   return (
     <aside
