@@ -17,6 +17,7 @@ const NavBar = () => {
           <li>
             <NavLink
               to={'/'}
+              onClick={() => context.setSearchByCategory(null)}
               className={({ isActive }) => (isActive ? activeStyle : undefined)}
             >
               All
@@ -26,6 +27,7 @@ const NavBar = () => {
             <NavLink
               to={'/clothes'}
               className={({ isActive }) => (isActive ? activeStyle : undefined)}
+              onClick={() => context.setSearchByCategory('clothes')}
             >
               Clothes
             </NavLink>
@@ -33,6 +35,7 @@ const NavBar = () => {
           <li>
             <NavLink
               to={'/electronics'}
+              onClick={() => context.setSearchByCategory('electronics')}
               className={({ isActive }) => (isActive ? activeStyle : undefined)}
             >
               Electronics
@@ -41,6 +44,7 @@ const NavBar = () => {
           <li>
             <NavLink
               to={'/furnitures'}
+              onClick={() => context.setSearchByCategory('furnitures')}
               className={({ isActive }) => (isActive ? activeStyle : undefined)}
             >
               Furnitures
@@ -49,6 +53,7 @@ const NavBar = () => {
           <li>
             <NavLink
               to={'/toys'}
+              onClick={() => context.setSearchByCategory('toys')}
               className={({ isActive }) => (isActive ? activeStyle : undefined)}
             >
               Toys
@@ -57,6 +62,7 @@ const NavBar = () => {
           <li>
             <NavLink
               to={'/others'}
+              onClick={() => context.setSearchByCategory('others')}
               className={({ isActive }) => (isActive ? activeStyle : undefined)}
             >
               Others
@@ -89,9 +95,9 @@ const NavBar = () => {
               SingIn
             </NavLink>
           </li>
-          <li className={` flex items-center `}>
+          <li className={` flex items-center cursor-pointer`}>
             <ShoppingBagIcon className="h-6 w-6 text-black/50 hover:text-black" />
-            <div>{context.countCart}</div>
+            <div>{context.cartProducts.length}</div>
           </li>
         </ul>
       </nav>
