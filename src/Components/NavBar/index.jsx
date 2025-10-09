@@ -2,6 +2,7 @@ import { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
 import { ShoppingCartContext } from '../../Context/ShoppingCartContext'
 import { ShoppingBagIcon } from '@heroicons/react/16/solid'
+import './index.css'
 
 const NavBar = () => {
   let activeStyle = 'underline underline-offset-4'
@@ -70,7 +71,11 @@ const NavBar = () => {
           </li>
         </ul>
         <ul className="flex items-center gap-3">
-          <li className="text-black/50">neidernieto@gmail.com</li>
+          <li className="">
+            <NavLink to={'mailto:neidernieto@gmail.com'}>
+              neidernieto@gmail.com
+            </NavLink>
+          </li>
           <li>
             <NavLink
               to={'/my-orders'}

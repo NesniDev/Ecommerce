@@ -1,0 +1,16 @@
+nav {
+    /* transition: animation 1s ease-in-out; */
+    animation: scroll linear both;
+    animation-timeline: scroll(root block);
+    animation-range: 0 10px;
+}
+
+@keyframes scroll {
+    100% {
+        z-index: 100;
+        background: rgba(0, 0, 0, 0.3);
+        box-shadow: 0 0 10px rgb(0, 0, 0, 0.7);
+        backdrop-filter: blur(5px);
+        color: white;
+    }
+}
